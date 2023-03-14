@@ -1,0 +1,45 @@
+#Definign the version of Docker-compose
+version: "3.9"
+
+services:
+  # Configuration for the web service
+  web:
+    # Build the web service using the Dockerfile in the current directory
+    build: .
+    # Map port 5000 from the host to port 5000 in the container
+    ports:
+      - "5000:5000"
+    # Specify that this service depends on the db service
+    depends_on:
+      - db
+    # Connect this service to the my-net network
+    networks:
+      - my-net
+      
+  # Configuration for the db service
+  db:
+    # Use the official Postgres image from Docker Hub
+    image: postgres
+    # Always restart the container if it stops
+    restart: always
+    # Set environment variables for the Postgres container
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    # Mount init.sql and data.csv files into the container
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./solar_data_final.csv:/app/data.csv
+    # Connect this service to the my-net network
+    networks:
+      - my-net
+
+# Define the my-net network with the bridge driver
+networks:
+  my-net:
+    driver: bridge
+
+# Define a named volume for the db data
+volumes:
+  solar-project-db: 

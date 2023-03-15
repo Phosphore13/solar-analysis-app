@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Plotly Graph</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="graph"></div>
+    <script>
+      var data = {{ graphJSON|safe }};
+      var layout = {
+        title: 'Plotly Graph',
+        xaxis: { title: 'Datetime' },
+        yaxis: { title: 'Sirta GHI' }
+      };
+      Plotly.newPlot('graph', data, layout);
+    </script>
+  </body>
+</html>
+
+

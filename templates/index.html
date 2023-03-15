@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index Page</title>
+</head>
+<body>
+	<h1>Index Page</h1>
+	<table>
+		<tr>
+			{% for header in headers %}
+				<th>{{ header }}</th>
+			{% endfor %}
+		</tr>
+		{% for row in rows %}
+			<tr>
+				{% for value in row %}
+					<td>{{ value }}</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>
